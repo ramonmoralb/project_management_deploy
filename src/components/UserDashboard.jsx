@@ -7,7 +7,6 @@ import ProductCard from './ProductCard';
 import OrderCard from './OrderCard';
 import CreateOrder from './CreateOrder';
 import '../styles/UserDashboard.css';
-import '../styles/SalesStyles.css';
 
 const UserDashboard = () => {
   const { userRole, isAuthenticated, user, logout } = useAuth();
