@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import '../styles/Home.css';
 
 const Home = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, userRole } = useAuth();
 
   return (
     <div className="home">
@@ -17,10 +17,19 @@ const Home = () => {
         <div className="hero-buttons">
           {!isAuthenticated ? (
             <Link to="/login" className="hero-button primary-button">
-              Iniciar Sesión
-            </Link>
+            Iniciar Sesión
+          </Link>
           ) : (
-            <Link to="/dashboard" className="hero-button primary-button">
+            <Link 
+              to={
+                userRole === 'super_administrador' 
+                  ? '/admin' 
+                  : userRole === 'project_admin' 
+                    ? '/project-dashboard' 
+                    : '/user-dashboard'
+              } 
+              className="hero-button primary-button"
+            >
               Ir al Dashboard
             </Link>
           )}
@@ -84,7 +93,16 @@ const Home = () => {
             Iniciar Sesión
           </Link>
         ) : (
-          <Link to="/dashboard" className="cta-button">
+          <Link 
+            to={
+              userRole === 'super_administrador' 
+                ? '/admin' 
+                : userRole === 'project_admin' 
+                  ? '/project-dashboard' 
+                  : '/user-dashboard'
+            } 
+            className="cta-button"
+          >
             Ir al Dashboard
           </Link>
         )}

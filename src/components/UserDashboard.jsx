@@ -258,8 +258,14 @@ const UserDashboard = () => {
   const renderProjectDetails = (project) => {
     return (
       <div className="project-details">
-        <div className="card-header">
-          <h3>{project.title.rendered}</h3>
+        <div className="project-details-header">
+          <h2>{project.title.rendered}</h2>
+          <button 
+            className="btn-back"
+            onClick={() => setSelectedProject(null)}
+          >
+            <i className="fas fa-arrow-left"></i> Volver
+          </button>
         </div>
 
         <div className="project-details-content">
@@ -271,15 +277,15 @@ const UserDashboard = () => {
 
             <div className="info-section">
               <h3>Tareas</h3>
-              <div className="list">
+              <div className="tasks-list">
                 {project.meta?.tareas?.length > 0 ? (
                   project.meta.tareas.map(task => (
-                    <div key={task.nombre} className="list-item">
-                      <div className="card-header">
+                    <div key={task.nombre} className="task-card">
+                      <div className="task-header">
                         <h4>{task.nombre}</h4>
                         <div className="task-actions">
                           <select
-                            className={`status-badge ${task.estado}`}
+                            className={`status-select ${task.estado}`}
                             value={task.estado}
                             onChange={(e) => handleUpdateTaskStatus(task.nombre, e.target.value, project.id)}
                           >
@@ -291,7 +297,7 @@ const UserDashboard = () => {
                       </div>
                       <p>{task.descripcion}</p>
                       <div className="task-meta">
-                        <span className={`priority-badge ${task.prioridad}`}>
+                        <span className={`priority ${task.prioridad}`}>
                           {task.prioridad}
                         </span>
                         {task.asignado && (
